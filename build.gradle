@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+
+    // Rest Assured
+    testImplementation 'io.rest-assured:rest-assured:5.3.0'
+
+    // Jackson (для сериализации PostDto в JSON)
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
+}
+
+test {
+    useJUnitPlatform() // Включает поддержку JUnit 5
+    testLogging {
+        events "passed", "failed", "skipped"
+        showStandardStreams true
+    }
+}
