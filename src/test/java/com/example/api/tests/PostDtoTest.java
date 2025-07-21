@@ -4,7 +4,10 @@ import com.example.api.dto.PostDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -17,10 +20,18 @@ public class PostDtoTest {
         RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
     }
 
-    @Test
-    public void testPostWithDto() {
-        PostDto post = new PostDto("foo", "bar", 1);
+    static Stream<PostDto> postDtoProvider() {
+        return Stream.of(
+                new PostDto("foo", "bar", 1),
+                new PostDto("hello", "world", 2),
+                new PostDto("test", "data", 3)
 
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("postDtoProvider")
+    public void testPostWithDto(PostDto post) {
         given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + System.getenv("API_TOKEN"))
@@ -29,9 +40,9 @@ public class PostDtoTest {
                 .post("/posts")
                 .then()
                 .statusCode(201)
-                .body("title", equalTo("foo"))
-                .body("body", equalTo("bar"))
-                .body("userId", equalTo(1))
+                .body("title", equalTo(post.title))
+                .body("body", equalTo(post.body))
+                .body("userId", equalTo(post.userId))
                 .body("id", notNullValue());
     }
 }
