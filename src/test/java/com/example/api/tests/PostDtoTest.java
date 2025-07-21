@@ -19,12 +19,11 @@ public class PostDtoTest {
 
     @Test
     public void testPostWithDto() {
-        // Создаём объект DTO с данными
         PostDto post = new PostDto("foo", "bar", 1);
 
-        // Отправляем POST-запрос с этим объектом
         given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + System.getenv("API_TOKEN"))
                 .body(post)
                 .when()
                 .post("/posts")
@@ -33,6 +32,6 @@ public class PostDtoTest {
                 .body("title", equalTo("foo"))
                 .body("body", equalTo("bar"))
                 .body("userId", equalTo(1))
-                .body("id", notNullValue()); // JSONPlaceholder возвращает фиктивный id
+                .body("id", notNullValue());
     }
 }

@@ -18,6 +18,7 @@ public class RestAssuredTests {
     @Test
     public void testGetRequest() {
         given()
+                .header("Authorization", "Bearer " + System.getenv("API_TOKEN"))
                 .when()
                 .get("/posts/1")
                 .then()
@@ -32,6 +33,7 @@ public class RestAssuredTests {
 
         Response response = given()
                 .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + System.getenv("API_TOKEN"))
                 .body(requestBody)
                 .when()
                 .post("/posts");
