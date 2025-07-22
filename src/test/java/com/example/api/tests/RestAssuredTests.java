@@ -22,7 +22,7 @@ public class RestAssuredTests {
         System.out.println("API Name: " + apiName);
 
         given()
-                .header("Authorization", "Bearer " + System.getenv("API_TOKEN"))
+                .header("Authorization", "Bearer " + System.getProperty("API_TOKEN"))
                 .when()
                 .get("/posts/1")
                 .then()
@@ -37,7 +37,7 @@ public class RestAssuredTests {
 
         Response response = given()
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + System.getenv("API_TOKEN"))
+                .header("Authorization", "Bearer " + System.getProperty("API_TOKEN"))
                 .body(requestBody)
                 .when()
                 .post("/posts");
