@@ -34,7 +34,7 @@ public class PostDtoTest {
     public void testPostWithDto(PostDto post) {
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + System.getenv("API_TOKEN"))
+                .header("Authorization", "Bearer " + System.getProperty("API_TOKEN"))
                 .body(post)
                 .when()
                 .post("/posts")

@@ -14,7 +14,7 @@ public class JavaHttpTests {
         URL url = new URL("https://jsonplaceholder.typicode.com/posts/1");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Bearer " + System.getenv("API_TOKEN"));
+        connection.setRequestProperty("Authorization", "Bearer " + System.getProperty("API_TOKEN"));
         int statusCode = connection.getResponseCode();
         assertEquals(200, statusCode, "Ожидался код 200 OK");
         connection.disconnect();
@@ -26,7 +26,7 @@ public class JavaHttpTests {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Authorization", "Bearer " + System.getenv("API_TOKEN"));
+        connection.setRequestProperty("Authorization", "Bearer " + System.getProperty("API_TOKEN"));
         connection.setDoOutput(true);
 
         String jsonBody = "{\"title\":\"foo\", \"body\":\"bar\", \"userId\":1}";

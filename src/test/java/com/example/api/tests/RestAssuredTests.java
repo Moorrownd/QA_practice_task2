@@ -17,6 +17,10 @@ public class RestAssuredTests {
 
     @Test
     public void testGetRequest() {
+        assert System.getProperty("apiToken").equals("new123456");
+        String apiName = System.getProperty("token");
+        System.out.println("API Name: " + apiName);
+
         given()
                 .header("Authorization", "Bearer " + System.getenv("API_TOKEN"))
                 .when()

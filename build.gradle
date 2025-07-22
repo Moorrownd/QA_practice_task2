@@ -27,7 +27,12 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform() // Включает поддержку JUnit 5
+    useJUnitPlatform()
+
+    systemProperty "apiToken", System.getProperty("apiToken")
+    systemProperty "API_TOKEN", System.getProperty("API_TOKEN")
+    systemProperty "token", System.getProperty("token")
+
     testLogging {
         events "passed", "failed", "skipped"
         showStandardStreams true
